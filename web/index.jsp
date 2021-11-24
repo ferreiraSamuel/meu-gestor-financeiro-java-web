@@ -1,3 +1,5 @@
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="beans.Receita"%>
 <%@page import="beans.Despesa"%>
@@ -14,6 +16,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </head>
     <body>
+        <% 
+        Locale locale = new Locale("pt","BR");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        %>
         <div class="container d-flex flex-column align-items-center mt-5">
             <h1 class="display-6">Meu Gestor Financeiro</h1>
             <div class="container d-flex justify-content-between mt-5">
@@ -34,7 +40,7 @@
                         <tr>
                             <td><%= result.getTitulo()%></td>
                             <td><%= result.getDescricao()%></td>
-                            <td><%= result.getValor()%></td>
+                            <td><%= numberFormat.format(result.getValor())%></td>
                             <td><%= result.getCategoria_label()%></td>
                         </tr>
                         <%}%>
@@ -57,7 +63,7 @@
                         <tr>
                             <td><%= result.getTitulo()%></td>
                             <td><%= result.getDescricao()%></td>
-                            <td><%= result.getValor()%></td>
+                            <td><%= numberFormat.format(result.getValor())%></td>
                             <td><%= result.getCategoria_label()%></td>
                         </tr>
                         <%}%>
