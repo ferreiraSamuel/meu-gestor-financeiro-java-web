@@ -12,12 +12,12 @@
         <jsp:useBean id="despesa" class="beans.Despesa" />
 
         <%
-                if (Integer.parseInt(request.getParameter("type")) == 1) {%>
+            if (Integer.parseInt(request.getParameter("type")) == 1) {%>
         <jsp:setProperty property="*" name="receita" />
         <%}%>
 
         <%
-                if (Integer.parseInt(request.getParameter("type")) == 2) {%>
+            if (Integer.parseInt(request.getParameter("type")) == 2) {%>
         <jsp:setProperty property="*" name="despesa" />
         <%}%>
 
