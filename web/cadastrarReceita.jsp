@@ -12,30 +12,42 @@
         <title>Cadastrar Receita</title>
     </head>
     <body>
-        <h1>Cadastrar Receita</h1>
-        <div>
-            <form action="tratarDados.jsp" method="POST">
+        <div class="container d-flex flex-column align-items-center mt-5">
+            <h1  class="display-6">Cadastrar Receita</h1>
+            <form action="tratarDados.jsp" method="POST" class="container d-flex mt-5 flex-column w-50">
                 <input type="hidden" name="type" id="type" value="1">
 
-                <input type="text" placeholder="O que foi essa receita?" id="titulo" name="titulo">
+                <div class="mb-3 d-flex flex-column">
+                    <label for="titulo" class="form-label">Título:</label>
+                    <input  class="form-control" type="text" placeholder="O que foi essa receita?" id="titulo" name="titulo">
+                </div>
 
-                <input type="text" placeholder="Descreva sobre ela" id="descricao"  name="descricao">
+                <div class="mb-3 d-flex flex-column">
+                    <label for="descricao" class="form-label">Descrição:</label>
+                    <input class="form-control" type="text" placeholder="Descreva sobre ela" id="descricao"  name="descricao">
+                </div>
 
-                <input type="text" placeholder="Qual o valor?" id="valor" name="valor">
+                <div class="mb-3 d-flex flex-column">
+                    <label for="valor" class="form-label">Valor:</label>
+                    <input class="form-control" type="text" placeholder="Qual o valor R$?" id="valor" name="valor">
+                </div>
 
-                <select id="categoria_id" name="categoria_id">
-                    <%
-                        CategoriasReceitaDAO categoriasReceitaDAO = new CategoriasReceitaDAO();
-                        List<CategoriaReceita> results = categoriasReceitaDAO.consultarCategoriasReceita();
+                <div class="mb-4 d-flex flex-column">
+                    <label for="categoria_id" class="form-label">Escolha uma categoria:</label>
+                    <select class="form-select" id="categoria_id" name="categoria_id">
+                        <%
+                            CategoriasReceitaDAO categoriasReceitaDAO = new CategoriasReceitaDAO();
+                            List<CategoriaReceita> results = categoriasReceitaDAO.consultarCategoriasReceita();
 
-                        for (CategoriaReceita result : results) {%>
-                    <option value="<%= result.getId()%>"><%= result.getTitulo()%></option>
-                    <%}%>
-                    %>
-                </select>
-
+                            for (CategoriaReceita result : results) {%>
+                        <option value="<%= result.getId()%>"><%= result.getTitulo()%></option>
+                        <%}%>
+                        %>
+                    </select>
+                </div> 
                 <input type="submit" id="btnSubmit" value="Cadastrar"  class="btn btn-outline-secondary">
             </form>
         </div>
+
     </body>
 </html>
