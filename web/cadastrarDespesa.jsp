@@ -15,7 +15,7 @@
         <div class="container d-flex flex-column align-items-center mt-5">
             <h1 class="display-6">Cadastrar Despesa</h1>
 
-            <form action="tratarDados.jsp" method="POST" class="container d-flex mt-5 flex-column w-50">
+            <form id="form" action="tratarDados.jsp" method="POST" class="container d-flex mt-5 flex-column w-50">
                 <input type="hidden" name="type" id="type" value="2">
 
                 <div class="mb-3 d-flex flex-column">
@@ -35,21 +35,26 @@
 
                 <div class="mb-4 d-flex flex-column">
                     <label for="categoria_id" class="form-label">Escolha uma categoria:</label>
-                     <select class="form-select" id="categoria_id" name="categoria_id">
-                    <%
-                        CategoriasDespesaDAO categoriasReceitaDAO = new CategoriasDespesaDAO();
-                        List<CategoriaDespesa> results = categoriasReceitaDAO.consultarCategoriasDespesa();
+                    <select class="form-select" id="categoria_id" name="categoria_id">
+                        <%
+                            CategoriasDespesaDAO categoriasReceitaDAO = new CategoriasDespesaDAO();
+                            List<CategoriaDespesa> results = categoriasReceitaDAO.consultarCategoriasDespesa();
 
-                        for (CategoriaDespesa result : results) {%>
-                    <option value="<%= result.getId()%>"><%= result.getTitulo()%></option>
-                    <%}%>
-                    //                  %>
-                </select>
+                            for (CategoriaDespesa result : results) {%>
+                        <option value="<%= result.getId()%>"><%= result.getTitulo()%></option>
+                        <%}%>
+                        //                  %>
+                    </select>
                 </div>        
-               
 
                 <input type="submit" id="btnSubmit" value="Cadastrar" class="btn btn-outline-secondary">
+
+                <div style="display: none" class="alert alert-danger alert-dismissible fade show mt-5" role="alert" id="alert-error">
+                    <strong> Ops!</strong> Preencha todos os campos
+                </div>
+
             </form>
         </div> 
+        <script src="./js/main.js"></script>
     </body>
 </html>
