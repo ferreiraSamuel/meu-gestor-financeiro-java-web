@@ -38,12 +38,11 @@
                 status = despesasDAO.cadastrarDespesa(despesa);
             };
 
-            if (status > 0) {
-                out.print("Inserido com sucesso");
-            } else {
+            if (status > 0) {%>
+             <jsp:forward page = "index.jsp" />
+            <% } else {
                 out.print("Algo deu errado!");
-            }
-        %>
+            } %>
 
         <a href="/MeuGestorFinanceiro">Voltar</a>
     </body>
