@@ -38,11 +38,12 @@
                 status = despesasDAO.cadastrarDespesa(despesa);
             };
 
-            if (status > 0) {%>
-             <jsp:forward page = "index.jsp" />
-            <% } else {
+            if (status > 0) {
+                String redirectURL = "http://localhost:8080/MeuGestorFinanceiro/";
+                response.sendRedirect(redirectURL);
+            } else {
                 out.print("Algo deu errado!");
-            } %>
+            }%>
 
         <a href="/MeuGestorFinanceiro">Voltar</a>
     </body>
