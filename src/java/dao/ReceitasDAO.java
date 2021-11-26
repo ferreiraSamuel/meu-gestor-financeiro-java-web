@@ -163,6 +163,31 @@ public class ReceitasDAO {
 
         return result;
     }
+    
+     public int excluirReceita(Receita receita) throws ClassNotFoundException {
+
+       String DELETE_RECEITA_SQL = "DELETE from receitas "
+                + " WHERE id = ?;";
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = new ConnectionFactory().getConnection();) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_RECEITA_SQL);
+
+            preparedStatement.setInt(1, receita.getId());
+
+            System.out.println(preparedStatement);
+
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+
+        return result;
+    }
+
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

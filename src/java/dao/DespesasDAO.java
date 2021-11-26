@@ -138,7 +138,7 @@ public class DespesasDAO {
      
     public int atualizarDespesa(Despesa despesa) throws ClassNotFoundException {
 
-        String INSERT_USERS_SQL = "UPDATE despesas "
+        String UPDATE_DESPESA_SQL = "UPDATE despesas "
                 + " set titulo=?, descricao=?, valor=?, categoria_id=?"
                 + " WHERE id = ?;";
 
@@ -146,13 +146,37 @@ public class DespesasDAO {
 
         try (Connection connection = new ConnectionFactory().getConnection();) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DESPESA_SQL);
 
             preparedStatement.setString(1, despesa.getTitulo());
             preparedStatement.setString(2, despesa.getDescricao());
             preparedStatement.setDouble(3, despesa.getValor());
             preparedStatement.setInt(4, despesa.getCategoria_id());
             preparedStatement.setInt(5, despesa.getId());
+
+            System.out.println(preparedStatement);
+
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+
+        return result;
+    }
+    
+    public int excluirDespesa(Despesa despesa) throws ClassNotFoundException {
+
+        String DELETE_DESPESA_SQL = "DELETE from despesas "
+                + " WHERE id = ?;";
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = new ConnectionFactory().getConnection();) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_DESPESA_SQL);
+
+            preparedStatement.setInt(1, despesa.getId());
 
             System.out.println(preparedStatement);
 
