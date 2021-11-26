@@ -51,9 +51,9 @@
 
                             for (CategoriaDespesa result : results) {%>
                         <option value="<%= result.getId()%>" <%
-                            if (result.getId() == despesaSelecionada.getCategoria_id()) {
-                                System.out.println("selected");
-                            };%>>
+                            if (result.getId() == despesaSelecionada.getCategoria_id()) {%>
+                                <%= "selected" %>
+                            <%};%>>
                             <%= result.getTitulo()%>
                         </option>
                         <%}%>

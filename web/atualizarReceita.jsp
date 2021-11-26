@@ -51,9 +51,9 @@
 
                             for (CategoriaReceita result : results) {%>
                         <option value="<%= result.getId()%>" 
-                                <% if (result.getId() == receitaSelecionada.getCategoria_id()) {
-                                    System.out.println("selected");
-                                };%>>
+                                <% if (result.getId() == receitaSelecionada.getCategoria_id()) {%>
+                                    <%= "selected" %>
+                                 <%};%>>
                             <%= result.getTitulo()%>
                         </option>
                         <%}%>
