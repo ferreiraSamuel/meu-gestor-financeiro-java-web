@@ -95,6 +95,74 @@ public class ReceitasDAO {
 
         return receitas;
     }
+    
+    public List consultarReceita(String id) throws ClassNotFoundException {
+        String SELECT_RECEITA_SQL = "select receitas.id, receitas.titulo, receitas.descricao, receitas.valor, receitas.categoria_id, categorias_receitas.titulo as categoria_label "
+                + " from receitas "
+                + " inner join categorias_receitas on receitas.categoria_id = categorias_receitas.id "
+                + " where receitas.id="+id;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = new ConnectionFactory().getConnection();) {
+
+            List<Receita> receitas = new ArrayList<Receita>();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_RECEITA_SQL);
+
+            ResultSet result = preparedStatement.executeQuery();
+
+            while (result.next()) {
+                Receita receita = new Receita();
+                receita.setId(result.getInt("id"));
+                receita.setTitulo(result.getString("titulo"));
+                receita.setDescricao(result.getString("descricao"));
+                receita.setValor(result.getDouble("valor"));
+                receita.setCategoria_id(result.getInt("categoria_id"));
+                receita.setCategoria_label(result.getString("categoria_label"));
+
+                receitas.add(receita);
+            }
+
+            result.close();
+            connection.close();
+
+            return receitas;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+
+        return receitas;
+    }
+     
+    public int atualizarReceita(Receita receita) throws ClassNotFoundException {
+
+        String INSERT_USERS_SQL = "UPDATE receitas "
+                + " set titulo=?, descricao=?, valor=?, categoria_id=?"
+                + " WHERE id = ?;";
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = new ConnectionFactory().getConnection();) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
+
+            preparedStatement.setString(1, receita.getTitulo());
+            preparedStatement.setString(2, receita.getDescricao());
+            preparedStatement.setDouble(3, receita.getValor());
+            preparedStatement.setInt(4, receita.getCategoria_id());
+            preparedStatement.setInt(5, receita.getId());
+
+            System.out.println(preparedStatement);
+
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+
+        return result;
+    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
